@@ -22,26 +22,30 @@ class Rational(n: Int, d: Int){
   def this(n: Int) = this(n,1) // auxiliary constructor - passes a single parameter and default value of 1 to primary constructor
   override def toString = numer +"/"+ denom
 
-  def add(that: Rational): Rational ={
+  def +(that: Rational): Rational ={
     new Rational(this.numer * that.denom + that.numer * this.denom, this.denom * that.denom) // you may choose not to use this keyword
     // this is an object instance on which the add method is invoked.
     // that is an object passed as a parameter
   }
 
-  def lessThan(that: Rational): Boolean ={
+  def *(that: Rational): Rational ={
+    new Rational(numer * that.denom, denom * that.numer)
+  }
+
+  def <(that: Rational): Boolean ={
     this.numer * that.denom < that.numer * this.denom
   }
 
-  def greaterThan(that: Rational): Boolean ={
-    if(this.lessThan(that)) false else true
+  def >(that: Rational): Boolean ={
+    if(this < that) false else true
   }
 
   def max(that: Rational): Rational ={
-    if(this.lessThan(that)) that else this
+    if(this < that) that else this
   }
 
   def min(that: Rational): Rational ={
-    if(this.lessThan(that)) this else that
+    if(this < that) this else that
   }
 
   /*
@@ -61,11 +65,11 @@ object Rational{
     println(twoThird)
 //    val oneZero = new Rational(1,0)
 
-    val result = oneHalf.add(twoThird)
+    val result = oneHalf + twoThird
     println(result)
 
-    println(oneHalf.lessThan(twoThird)) // returns true
-    println(oneHalf.greaterThan(twoThird)) // returns false
+    println(oneHalf < twoThird) // returns true
+    println(oneHalf > twoThird) // returns false
     println(oneHalf.max(twoThird)) // returns 2/3
     println(oneHalf.min(twoThird)) // returns 1/2
 
